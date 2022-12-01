@@ -12,9 +12,16 @@ export class SendController implements Controller {
     } 
 
     async handle(httpRequest: HttpRequest): Promise<HttpResponse> {
-        if(!httpRequest.body.cellphone) {
-            return badRequest(new MissingParamError("cellphone"))
+        const requiredFields = [
+            'cellphone',
+            'message'
+        ]
+        for (const field of requiredFields){
+            if(!httpRequest.body[field]) {
+                return badRequest(new MissingParamError(field))
+            }
         }
+
     }
 
 }
