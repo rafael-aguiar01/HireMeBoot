@@ -1,5 +1,4 @@
 import { CellphoneValidatorAdapter } from './cellphone-validator-adapter'
-// import isValidPhoneNumber from 'libphonenumber-js'
 
 const makeSut = (): CellphoneValidatorAdapter => {
   return new CellphoneValidatorAdapter()

@@ -1,8 +1,8 @@
 export interface SendModel {
-    cellphone: string
-    message: string
+  cellphone: string
+  message: string
 }
 
 export interface SendReturn{
-    sendReturn: object
+  sendReturn: object
 }
