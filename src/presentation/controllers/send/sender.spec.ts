@@ -18,24 +18,23 @@ describe('Send Controller', () => {
     }
     return new SendMessageStub()
   }
+
   interface SutTypes{
     sut: SendController
     sendMessageStub: Send
   }
+
   const makeSut = (): SutTypes => {
     const sendMessageStub = makeSendMessage()
-    const sut = new SendController(sendMessageStub)
+    const sut = new SendController(makeFakeSendMessage())
     return {
       sut,
       sendMessageStub
     }
   }
+
   test('Should return 400 if no cellphone is provided', async () => {
-    const sendStub = {
-      cellphone: 'valid_cellphone',
-      message: 'valid_message'
-    }
-    const sut = new SendController(sendStub)
+    const { sut } = makeSut()
     const httpRequest = {
       body: {
         message: 'valid_message'
@@ -45,12 +44,9 @@ describe('Send Controller', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('cellphone')))
   })
+
   test('Should return 400 if no message is provided', async () => {
-    const sendStub = {
-      cellphone: 'valid_cellphone',
-      message: 'valid_message'
-    }
-    const sut = new SendController(sendStub)
+    const { sut } = makeSut()
     const httpRequest = {
       body: {
         cellphone: 'valid_cellphone'
