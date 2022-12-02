@@ -4,7 +4,7 @@ const makeSut = (): LibPhoneNumberAdapter => {
   return new LibPhoneNumberAdapter()
 }
 const validPhoneNumber = '11977805388'
-const parsePhoneNumber = '5511977805388'
+const parsePhoneNumber = '5511977805388@c.us'
 
 describe('Libphonenumber Adapter', () => {
   test('Should return a correct number on success', async () => {
