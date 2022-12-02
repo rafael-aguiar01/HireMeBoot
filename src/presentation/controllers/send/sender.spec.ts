@@ -1,7 +1,7 @@
 import { SendModel } from '../../../domain/models/sendModel'
 import { Send } from '../../../domain/usecases/sendMessage'
-import { MissingParamError } from '../../errors'
-import { badRequest } from '../../helpers/http-helper'
+import { MissingParamError, ServerError } from '../../errors'
+import { badRequest, serverError } from '../../helpers/http-helper'
 import { CellphoneValidator } from '../../protocols/cellphone-validator'
 import { SendController } from './sender'
 import { HttpRequest } from '../../protocols/http'
@@ -82,5 +82,14 @@ describe('Send Controller', () => {
     jest.spyOn(phoneNumberValidatorStub, 'isValid').mockReturnValueOnce(false)
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(badRequest(new MissingParamError('11977805377')))
+  })
+
+  test('Should return 500 if PhoneNumberValidator throws', async () => {
+    const { sut, phoneNumberValidatorStub } = makeSut()
+    jest.spyOn(phoneNumberValidatorStub, 'isValid').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new ServerError(null)))
   })
 })
