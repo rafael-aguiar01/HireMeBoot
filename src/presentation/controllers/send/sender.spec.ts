@@ -45,7 +45,7 @@ describe('Send Controller', () => {
   const makeSut = (): SutTypes => {
     const sendMessageStub = makeSendMessage()
     const phoneNumberValidatorStub = makePhoneNumberValidator()
-    const sut = new SendController(makeFakeSendMessage(), phoneNumberValidatorStub)
+    const sut = new SendController(sendMessageStub, phoneNumberValidatorStub)
     return {
       sut,
       phoneNumberValidatorStub,
@@ -91,5 +91,15 @@ describe('Send Controller', () => {
     })
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(serverError(new ServerError(null)))
+  })
+
+  test('Should call AddAccount with correct values', async () => {
+    const { sut, sendMessageStub } = makeSut()
+    const sendSpy = jest.spyOn(sendMessageStub, 'send')
+    await sut.handle(makeFakeRequest())
+    expect(sendSpy).toHaveBeenCalledWith({
+      cellphone: '11977805377',
+      message: 'valid_message'
+    })
   })
 })
