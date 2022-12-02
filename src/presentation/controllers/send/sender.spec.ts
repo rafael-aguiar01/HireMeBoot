@@ -2,12 +2,29 @@ import { SendModel } from '../../../domain/models/sendModel'
 import { Send } from '../../../domain/usecases/sendMessage'
 import { MissingParamError } from '../../errors'
 import { badRequest } from '../../helpers/http-helper'
+import { CellphoneValidator } from '../../protocols/cellphone-validator'
 import { SendController } from './sender'
+import { HttpRequest } from '../../protocols/http'
 
 describe('Send Controller', () => {
+  const makePhoneNumberValidator = (): CellphoneValidator => {
+    class PhoneNumberValidatorStub implements CellphoneValidator {
+      isValid (cellphone: string): boolean {
+        return true
+      }
+    }
+    return new PhoneNumberValidatorStub()
+  }
   const makeFakeSendMessage = (): SendModel => ({
     cellphone: 'valid_cellphone',
     message: 'valid_message'
+  })
+
+  const makeFakeRequest = (): HttpRequest => ({
+    body: {
+      cellphone: '11977805377',
+      message: 'valid_message'
+    }
   })
 
   const makeSendMessage = (): Send => {
@@ -21,14 +38,17 @@ describe('Send Controller', () => {
 
   interface SutTypes{
     sut: SendController
+    phoneNumberValidatorStub: CellphoneValidator
     sendMessageStub: Send
   }
 
   const makeSut = (): SutTypes => {
     const sendMessageStub = makeSendMessage()
-    const sut = new SendController(makeFakeSendMessage())
+    const phoneNumberValidatorStub = makePhoneNumberValidator()
+    const sut = new SendController(makeFakeSendMessage(), phoneNumberValidatorStub)
     return {
       sut,
+      phoneNumberValidatorStub,
       sendMessageStub
     }
   }
@@ -55,5 +75,12 @@ describe('Send Controller', () => {
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse).toEqual(badRequest(new MissingParamError('message')))
+  })
+
+  test('Should return 400 if an invalid cellphone is provided', async () => {
+    const { sut, phoneNumberValidatorStub } = makeSut()
+    jest.spyOn(phoneNumberValidatorStub, 'isValid').mockReturnValueOnce(false)
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(badRequest(new MissingParamError('11977805377')))
   })
 })
