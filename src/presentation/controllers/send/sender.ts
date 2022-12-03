@@ -3,7 +3,7 @@ import { HttpRequest, HttpResponse } from '../../protocols/http'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { CellphoneValidator } from '../../protocols/cellphone-validator'
-import { Sender } from '../../../data/protocols/sendMessage'
+import { Sender } from '../../../data/protocols/send-message'
 
 export class SendController implements Controller {
   private readonly sendData: Sender

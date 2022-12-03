@@ -1,5 +1,5 @@
 import { parsePhoneNumber } from 'libphonenumber-js'
-import { ParsePhoneNumber } from '../../data/protocols/pharsePhoneNumber'
+import { ParsePhoneNumber } from '../../data/protocols/pharse-phone-number'
 
 export class LibPhoneNumberAdapter implements ParsePhoneNumber{
   async parse (value: string): Promise<string> {

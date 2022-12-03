@@ -1,5 +1,5 @@
-import { SendModel } from '../../../domain/models/sendModel'
-import { Send } from '../../../domain/usecases/sendMessage'
+import { SendModel } from '../../../domain/models/send-model'
+import { Send } from '../../../domain/usecases/send-message'
 import { MissingParamError, ServerError } from '../../errors'
 import { badRequest, serverError } from '../../helpers/http-helper'
 import { CellphoneValidator } from '../../protocols/cellphone-validator'

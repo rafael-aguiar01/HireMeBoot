@@ -1,4 +1,4 @@
-import { Sender } from '../../data/protocols/sendMessage'
+import { Sender } from '../../data/protocols/send-message'
 
 export class Send implements Sender {
   private readonly client
