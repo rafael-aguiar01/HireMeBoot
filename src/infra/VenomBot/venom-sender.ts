@@ -1,4 +1,6 @@
-export class Send {
+import { Sender } from '../../data/protocols/sendMessage'
+
+export class Send implements Sender {
   private readonly client
 
   constructor (client: any){
