@@ -1,15 +1,22 @@
 import express from 'express'
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const venom = require('venom-bot')
+import { create } from 'venom-bot'
+import { Send } from '../infra/VenomBot/venom-sender'
 const app = express()
 const port = 5050
 
-venom
-  .create({
-    session: 'session-name',
-    multidevice: true
+app.use(express.json())
+create({
+  session: 'HireMeBoot',
+  multidevice: true
+}).then((client) => {
+  start(client)
+  app.post('/send', async (req, res) => {
+    const { cellphone, message } = req.body
+    const send = new Send(client, cellphone)
+    const ok = await send.sendText(cellphone, message)
+    res.send(ok)
   })
-  .then((client) => start(client))
+})
   .catch((erro) => {
     console.log(erro)
   })
@@ -21,6 +28,7 @@ function start (client): any {
         .sendText(message.from, 'Welcome Venom 🕷')
         .then((result) => {
           console.log('Result: ', result)
+          return client
         })
         .catch((erro) => {
           console.error('Error when sending: ', erro)
@@ -28,6 +36,7 @@ function start (client): any {
     }
   })
 }
+
 app.listen(port, () => {
   console.log(`HireMeBoot listening on port ${port}`)
 })
