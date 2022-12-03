@@ -1,13 +1,10 @@
-import express from 'express'
 import { create } from 'venom-bot'
 import { ServiceBoot } from './serviceBoot'
-
-const app = express()
-const port = 5050
-app.use(express.json())
+import env from './config/env'
+import app from './config/app'
 
 create({
-  session: 'HireMeBoot'
+  session: env.sessionName
 }).then((client) => {
   ServiceBoot.setInstance(client)
   ServiceBoot.start()
@@ -15,6 +12,4 @@ create({
   console.error(error)
 })
 
-app.listen(port, () => {
-  console.log(`HireMeBoot listening on port ${port}`)
-})
+app.listen(env.port, () => console.log(`Server running at http://localhost:${5050}`))
