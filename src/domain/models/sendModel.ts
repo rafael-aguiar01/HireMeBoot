@@ -1,5 +1,4 @@
 export interface SendModel {
-  cellphone: string
   message: string
 }
 

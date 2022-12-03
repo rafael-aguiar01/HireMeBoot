@@ -1,7 +1,7 @@
 export class Send {
   private readonly client
 
-  constructor (client: any, chatId: any){
+  constructor (client: any){
     this.client = client
   }
 
