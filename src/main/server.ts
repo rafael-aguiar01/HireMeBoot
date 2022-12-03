@@ -1,6 +1,6 @@
 import express from 'express'
 import { create } from 'venom-bot'
-import { ServiceBoot } from './start'
+import { ServiceBoot } from './serviceBoot'
 
 const app = express()
 const port = 5050
