@@ -1,5 +1,5 @@
 import { create } from 'venom-bot'
-import { ServiceBoot } from './serviceBoot'
+import { ServiceBoot } from '../utils/whatsapp/service-boot'
 import env from './config/env'
 import app from './config/app'
 
