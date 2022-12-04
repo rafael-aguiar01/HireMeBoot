@@ -6,13 +6,6 @@ export class ServiceBoot {
 
   static client: Whatsapp
 
-  public static getInstance (): ServiceBoot {
-    if (!ServiceBoot.instance) {
-      ServiceBoot.instance = new ServiceBoot()
-    }
-    return ServiceBoot.instance
-  }
-
   public static setInstance (client: Whatsapp): any {
     ServiceBoot.client = client
   }
