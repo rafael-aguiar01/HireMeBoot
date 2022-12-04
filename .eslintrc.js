@@ -11,6 +11,7 @@ module.exports = {
     '@typescript-eslint/space-before-blocks': 'off',
     '@typescript-eslint/no-floating-promises': 'off',
     '@typescript-eslint/no-extraneous-class': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off'
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/restrict-template-expressions': 'off'
   }
 }
