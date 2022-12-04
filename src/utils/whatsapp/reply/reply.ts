@@ -1,6 +1,6 @@
 import { Whatsapp } from 'venom-bot'
-import { Send } from './send/sender'
-import { messages } from './messages'
+import { Send } from '../send/sender'
+import { messages } from '../messages'
 
 export class Reply {
   async reply (
@@ -10,10 +10,11 @@ export class Reply {
     messageBody: string
   ){
     let answer = messages[messageBody]
-    if (!answer) {
-      answer = messages[0]
-    }
+    const defaultMessage = messages[0]
     const send = new Send(client)
+    if (!answer) {
+      answer = defaultMessage
+    }
     await send.sendText(from, answer(notifyName))
   }
 }

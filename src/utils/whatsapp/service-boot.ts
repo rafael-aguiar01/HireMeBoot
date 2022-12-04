@@ -1,5 +1,5 @@
 import { Whatsapp } from 'venom-bot'
-import { start } from './start'
+import { listening } from './listening'
 
 export class ServiceBoot {
   static instance: ServiceBoot
@@ -11,6 +11,6 @@ export class ServiceBoot {
   }
 
   public static start () {
-    start()
+    listening()
   }
 }

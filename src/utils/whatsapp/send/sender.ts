@@ -1,4 +1,4 @@
-import { Sender } from '../../../data/protocols/send-message'
+import { Sender } from '../../../domain/usecases/send-message'
 import { Whatsapp } from 'venom-bot'
 
 export class Send implements Sender {
@@ -12,7 +12,7 @@ export class Send implements Sender {
     try {
       await this.client.sendText(to, message)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return error
     }
   }

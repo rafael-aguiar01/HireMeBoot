@@ -1,7 +1,7 @@
 import { ServiceBoot } from './service-boot'
-import { Reply } from './reply'
+import { Reply } from './reply/reply'
 
-export async function start () {
+export async function listening () {
   const client = await ServiceBoot.client
   const reply = new Reply()
 
