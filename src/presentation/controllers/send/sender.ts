@@ -3,14 +3,14 @@ import { HttpRequest, HttpResponse } from '../../protocols/http'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { MissingParamError, InvalidParamError } from '../../errors'
 import { CellphoneValidator } from '../../protocols/cellphone-validator'
-import { Sender } from '../../../data/protocols/send-message'
+import { Sender } from '../../../domain/usecases/send-message'
 
 export class SendController implements Controller {
-  private readonly sendData: Sender
+  private readonly client: Sender
   private readonly phoneNumberValidator: CellphoneValidator
 
   constructor (sendData: Sender, phoneNumberValidator: CellphoneValidator) {
-    this.sendData = sendData
+    this.client = sendData
     this.phoneNumberValidator = phoneNumberValidator
   }
 
@@ -30,10 +30,9 @@ export class SendController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError(cellphone))
       }
-      const result = this.sendData.sendText(cellphone, message)
+      const result = this.client.sendText(cellphone, message)
       return ok(result)
     } catch (error) {
-      console.log(error)
       return serverError(error)
     }
   }

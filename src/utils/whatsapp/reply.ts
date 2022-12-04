@@ -1,5 +1,5 @@
 import { Whatsapp } from 'venom-bot'
-import { Send } from '../../infra/VenomBot/venom-sender'
+import { Send } from './send/sender'
 import { messages } from './messages'
 
 export class Reply {
