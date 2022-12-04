@@ -1,9 +1,10 @@
 import { Sender } from '../../data/protocols/send-message'
+import { Whatsapp } from 'venom-bot'
 
 export class Send implements Sender {
   private readonly client
 
-  constructor (client: any){
+  constructor (client: Whatsapp){
     this.client = client
   }
 
