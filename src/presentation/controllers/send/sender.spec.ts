@@ -1,5 +1,5 @@
 import { SendModel } from '../../../domain/models/send-model'
-import { Send } from '../../../domain/usecases/send-message'
+import { Sender } from '../../../domain/usecases/send-message'
 import { MissingParamError, ServerError } from '../../errors'
 import { badRequest, serverError } from '../../helpers/http-helper'
 import { CellphoneValidator } from '../../protocols/cellphone-validator'
@@ -16,7 +16,6 @@ describe('Send Controller', () => {
     return new PhoneNumberValidatorStub()
   }
   const makeFakeSendMessage = (): SendModel => ({
-    cellphone: 'valid_cellphone',
     message: 'valid_message'
   })
 
@@ -27,9 +26,9 @@ describe('Send Controller', () => {
     }
   })
 
-  const makeSendMessage = (): Send => {
-    class SendMessageStub implements Send {
-      async send (send: SendModel): Promise<any> {
+  const makeFakeClient = (): Sender => {
+    class SendMessageStub implements Sender {
+      async sendText (to: string, message: string): Promise<any> {
         return new Promise(resolve => resolve(makeFakeSendMessage()))
       }
     }
@@ -39,17 +38,17 @@ describe('Send Controller', () => {
   interface SutTypes{
     sut: SendController
     phoneNumberValidatorStub: CellphoneValidator
-    sendMessageStub: Send
+    client: Sender
   }
 
   const makeSut = (): SutTypes => {
-    const sendMessageStub = makeSendMessage()
     const phoneNumberValidatorStub = makePhoneNumberValidator()
-    const sut = new SendController(sendMessageStub, phoneNumberValidatorStub)
+    const client = makeFakeClient()
+    const sut = new SendController(client, phoneNumberValidatorStub)
     return {
       sut,
       phoneNumberValidatorStub,
-      sendMessageStub
+      client
     }
   }
 
@@ -93,13 +92,10 @@ describe('Send Controller', () => {
     expect(httpResponse).toEqual(serverError(new ServerError(null)))
   })
 
-  test('Should call AddAccount with correct values', async () => {
-    const { sut, sendMessageStub } = makeSut()
-    const sendSpy = jest.spyOn(sendMessageStub, 'send')
+  test('Should call client with correct values', async () => {
+    const { sut, client } = makeSut()
+    const sendSpy = jest.spyOn(client, 'sendText')
     await sut.handle(makeFakeRequest())
-    expect(sendSpy).toHaveBeenCalledWith({
-      cellphone: '11977805377',
-      message: 'valid_message'
-    })
+    expect(sendSpy).toHaveBeenCalledWith('11977805377', 'valid_message')
   })
 })
