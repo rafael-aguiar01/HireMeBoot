@@ -1,5 +1,8 @@
-export function yearlyGoals (user) {
-  return `As metas para 2023 são..
+export function yearlyGoals (user): string {
+  return `Os objetivos para 2023 são:
+
+- Na área profissional estar atuando como desenvolvedor em grandes projetos 🧑‍💻. 
+- Na área pessoal aumentar nossa família 🤰.
 
 Escolha outra opção, para conhecer mais o Rafael:
 *[ 1 ]* - Histórico Profissional 👨‍💻 

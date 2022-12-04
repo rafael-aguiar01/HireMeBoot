@@ -1,5 +1,6 @@
-export function personalBackground (user) {
-  return `Rafael nasceu..
+export function personalBackground (user): string {
+  return `Rafael nasceu no dia 22/04/1989 em Jundiaí. Cresceu em Várzea Paulista, junto com seu pai, mãe e seu irmão.
+Em 2022 casou com a Ericka e se mudou para Jarinu.
 
 Escolha outra opção, para conhecer mais o Rafael:
 *[ 1 ]* - Histórico Profissional 👨‍💻 
