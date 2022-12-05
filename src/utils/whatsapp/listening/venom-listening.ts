@@ -1,5 +1,5 @@
-import { ServiceBoot } from './service-boot'
-import { Reply } from './reply/reply'
+import { ServiceBoot } from '../service-boot'
+import { Reply } from '../reply/venom-reply'
 
 export async function listening () {
   const client = await ServiceBoot.client
@@ -7,7 +7,7 @@ export async function listening () {
 
   client.onMessage(async (message) => {
     if (!message.isGroupMsg) {
-      await reply.reply(
+      await reply.replyMessage(
         client,
         message.from,
         message.notifyName,

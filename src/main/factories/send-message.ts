@@ -1,4 +1,4 @@
-import { Send } from '../../utils/whatsapp/send/sender'
+import { Send } from '../../utils/whatsapp/send/venom-sender'
 import { SendController } from '../../presentation/controllers/send/sender'
 import { Controller } from '../../presentation/protocols/controller'
 import { CellphoneValidatorAdapter } from '../../utils/phone-validator/cellphone-validator-adapter'
