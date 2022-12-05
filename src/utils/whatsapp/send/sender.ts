@@ -12,7 +12,7 @@ export class Send implements Sender {
     try {
       await this.client.sendText(to, message)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return error
     }
   }
