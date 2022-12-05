@@ -3,7 +3,7 @@
 <p> Esse projeto tem dois objetivos, primeiro ele roda uma API que envia mensagem para um número de Whatsapp. Além disso, ele também executa um boot que irá fornecer informações sobre o desenvolvedor do projeto.  </p>
 
 ## Enviar uma mensagem para o boot em execução
-https://wa.me/11930973952
+https://wa.me/5511930973952
 
 ## Tecnologias
 - Typescript
