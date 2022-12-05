@@ -1,10 +1,8 @@
 import { SendModel } from '../../../domain/models/send-model'
-import { Sender } from '../../../domain/usecases/send-message'
-import { MissingParamError, ServerError } from '../../errors'
+import { HttpRequest, CellphoneValidator, Sender } from './send-protocols'
 import { badRequest, serverError } from '../../helpers/http-helper'
-import { CellphoneValidator } from '../../protocols/cellphone-validator'
+import { MissingParamError, ServerError } from '../../errors'
 import { SendController } from './sender'
-import { HttpRequest } from '../../protocols/http'
 
 describe('Send Controller', () => {
   const makePhoneNumberValidator = (): CellphoneValidator => {

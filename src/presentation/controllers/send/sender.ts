@@ -1,9 +1,6 @@
-import { Controller } from '../../protocols/controller'
-import { HttpRequest, HttpResponse } from '../../protocols/http'
+import { Controller, HttpRequest, HttpResponse, CellphoneValidator, Sender } from './send-protocols'
 import { badRequest, ok, serverError } from '../../helpers/http-helper'
 import { MissingParamError, InvalidParamError } from '../../errors'
-import { CellphoneValidator } from '../../protocols/cellphone-validator'
-import { Sender } from '../../../domain/usecases/send-message'
 
 export class SendController implements Controller {
   private readonly client: Sender
