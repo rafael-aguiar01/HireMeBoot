@@ -30,7 +30,7 @@ export class SendController implements Controller {
       if (!isValid) {
         return badRequest(new InvalidParamError(cellphone))
       }
-      const result = this.client.sendText(cellphone, message)
+      const result = this.client.sendMessage(cellphone, message)
       return ok(result)
     } catch (error) {
       return serverError(error)

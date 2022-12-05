@@ -28,7 +28,7 @@ describe('Send Controller', () => {
 
   const makeFakeClient = (): Sender => {
     class SendMessageStub implements Sender {
-      async sendText (to: string, message: string): Promise<any> {
+      async sendMessage (to: string, message: string): Promise<any> {
         return new Promise(resolve => resolve(makeFakeSendMessage()))
       }
     }
@@ -94,7 +94,7 @@ describe('Send Controller', () => {
 
   test('Should call client with correct values', async () => {
     const { sut, client } = makeSut()
-    const sendSpy = jest.spyOn(client, 'sendText')
+    const sendSpy = jest.spyOn(client, 'sendMessage')
     await sut.handle(makeFakeRequest())
     expect(sendSpy).toHaveBeenCalledWith('11977805377', 'valid_message')
   })
